@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node src/index.ts",
+    "dev:file": "ts-node src/${npm_config_file}.ts",
     "lint": "eslint '*/**/*.ts' --quiet --fix",
     "format": "prettier --write \"**/*.+(js|ts|json)\""
   },
