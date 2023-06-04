@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { PromptTemplate } from 'langchain'
+import { PromptTemplate } from 'langchain/prompts'
 
 const main = async () => {
   const template = 'What is a good name for a company that makes {product}?'
