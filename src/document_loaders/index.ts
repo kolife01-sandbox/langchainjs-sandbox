@@ -6,9 +6,10 @@ import { RecursiveCharacterTextSplitter } from 'langchain/dist/text_splitter'
 import { PineconeClient } from '@pinecone-database/pinecone'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { PineconeStore } from 'langchain/vectorstores/pinecone'
+import 'dotenv/config'
 
 const main = async () => {
-  const loader = new DirectoryLoader('./docs/react.dev', {
+  const loader = new DirectoryLoader('./src/document_loaders/docs', {
     '.json': (path) => new JSONLoader(path, '/texts'),
     '.jsonl': (path) => new JSONLinesLoader(path, '/html'),
     '.css': (path) => new TextLoader(path),
@@ -18,14 +19,15 @@ const main = async () => {
     '.md': (path) => new TextLoader(path),
     '.csv': (path) => new CSVLoader(path, 'text'),
   })
-  const docs = await loader.load()
+  const documents = await loader.load()
+  // console.log('documents', documents)
 
-  const textSplitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 800,
-    chunkOverlap: 200,
-  })
+  // const textSplitter = new RecursiveCharacterTextSplitter({
+  //   chunkSize: 800,
+  //   chunkOverlap: 200,
+  // })
 
-  const documents = await textSplitter.splitDocuments(docs)
+  // const documents = await textSplitter.splitDocuments(docs)
 
   // https://js.langchain.com/docs/modules/indexes/vector_stores/integrations/pinecone
   const client = new PineconeClient()
