@@ -2,7 +2,7 @@ import { DirectoryLoader } from 'langchain/document_loaders/fs/directory'
 import { JSONLoader, JSONLinesLoader } from 'langchain/document_loaders/fs/json'
 import { TextLoader } from 'langchain/document_loaders/fs/text'
 import { CSVLoader } from 'langchain/document_loaders/fs/csv'
-import { RecursiveCharacterTextSplitter } from 'langchain/dist/text_splitter'
+import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { PineconeClient } from '@pinecone-database/pinecone'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { PineconeStore } from 'langchain/vectorstores/pinecone'
@@ -19,15 +19,15 @@ const main = async () => {
     '.md': (path) => new TextLoader(path),
     '.csv': (path) => new CSVLoader(path, 'text'),
   })
-  const documents = await loader.load()
+  const docs = await loader.load()
   // console.log('documents', documents)
 
-  // const textSplitter = new RecursiveCharacterTextSplitter({
-  //   chunkSize: 800,
-  //   chunkOverlap: 200,
-  // })
+  const textSplitter = new RecursiveCharacterTextSplitter({
+    chunkSize: 800,
+    chunkOverlap: 200,
+  })
 
-  // const documents = await textSplitter.splitDocuments(docs)
+  const documents = await textSplitter.splitDocuments(docs)
 
   // https://js.langchain.com/docs/modules/indexes/vector_stores/integrations/pinecone
   const client = new PineconeClient()
