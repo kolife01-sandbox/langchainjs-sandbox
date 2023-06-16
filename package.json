@@ -26,6 +26,7 @@
     "@pinecone-database/pinecone": "^0.1.6",
     "dotenv": "^16.0.3",
     "langchain": "^0.0.90",
+    "openai": "^3.3.0",
     "serpapi": "^1.1.1"
   }
 }
